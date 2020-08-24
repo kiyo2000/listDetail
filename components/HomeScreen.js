@@ -6,7 +6,7 @@ export const HomeScreen = (props) => {
     const navigation = useNavigation() //Referencing
     return (
         <View>
-            <Text>Home Screen</Text>
+            <Text>{props.text}</Text>
             <Button title ="Go to Detail" onPress={() => {navigation.navigate("Detail")}} />
         </View>
     )
