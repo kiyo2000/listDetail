@@ -4,14 +4,19 @@ import { useNavigation } from '@react-navigation/native'
 
 export const HomeScreen = (props) => {
     const navigation = useNavigation() //Referencing
-    
+
     const renderList = ({item}) => (
-        <ListItem id={item.id} amount={item.amount} category={item.category} />
+        <ListItem 
+        id={item.id} 
+        amount={item.amount} 
+        category={item.category} 
+        clickHandler = {showDetail}
+        item = {item}
+        />
     )
-
     //To see...
-    const showDetail = ( item ) =>{
-
+    const showDetail = ( item ) => {
+        navigation.navigate("Detail", item )
     }
 
     return (
@@ -29,10 +34,12 @@ export const HomeScreen = (props) => {
 
 const ListItem = (props) => {
     return (
+        <TouchableOpacity onPress={ () => props.clickHandler(props.item) }>
         <View style={homeStyle.item}>
             <Text>{props.category}</Text>
             <Text>$ {props.amount}</Text>
         </View>
+        </TouchableOpacity>
     )
 }
 
@@ -43,6 +50,7 @@ const homeStyle = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#cccccc',
         flexDirection: 'row',
+        justifyContent: 'space-between',
 
     },
 })
