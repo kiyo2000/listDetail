@@ -4,6 +4,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import{ NavigationContainer, StackActions} from '@react-navigation/native'
 import{ createStackNavigator } from '@react-navigation/stack'
 
+// firebase config
+import {firebaseConfig} from './config/firebase'
+//firebase library
+import * as firebase from 'firebase'
+// initialise app // check if firebase exist or not
+if ( !firebase.app.length ) {
+  firebase.initializeApp( firebaseConfig )
+}
+
 import { HomeScreen } from './components/HomeScreen'
 import { DetailScreen } from './components/DetailScreen'
 
