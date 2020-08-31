@@ -30,6 +30,13 @@ const Data = [
 
 export default function App() {
   const listData = Data
+
+  //from AuthScreen.js via Firebase + error catch
+  const register = (email,password) =>{
+    firebase.auth().createUserWithEmailAndPassword( email, password )
+    .catch(error => console.log(error) )
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
