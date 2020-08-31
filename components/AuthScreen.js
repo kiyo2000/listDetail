@@ -29,7 +29,6 @@ export const AuthScreen = ( props ) => {
     else {
         return (
             //login view
-            // <View>
             <View style = {styles.container}>
             <Text style ={styles.title}> Sign In </Text>
             <TextInput style={styles.input} placeholder="you@email.com" />
@@ -46,7 +45,6 @@ export const AuthScreen = ( props ) => {
                 <Text style={styles.altButtonText} >- LOGIN -</Text>
             </TouchableOpacity>
         </View>         
-            // </View>
         )
     }
 }
