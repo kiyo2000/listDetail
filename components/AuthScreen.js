@@ -4,23 +4,64 @@ import { useNavigation } from '@react-navigation/native'
 
 export const AuthScreen = ( props ) => {
     const [ login, setLogin ] = useState(false)
+    // hooks for validation
+    const [validEmail,setValidEmail] = useState(false)
+    const [validPasssword,setValidPassword] = useState(false)
+
+    const navigation = useNavigation()
+
+    // Validating email
+    const valideEmail = (email) =>{
+        if( email.indexOf('@') > 0 && email.indexOf('.') > 0 ) {
+            setValidEmail( true )
+        }
+        else {
+            setValidEmail( false )
+        }
+    }
+    // Validating password
+    const validePassword = (password) =>{
+        if( password.length >= 6 ) {
+            setValidPassword( true )
+        }
+        else {
+            setValidPassword( false )
+        }
+    }
+
+
 
     if (!login){
         return (
             //register view + secure text 
             <View style = {styles.container}>
                 <Text style ={styles.title}> Register </Text>
-                <TextInput style={styles.input} placeholder="you@email.com" />
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="you@email.com" 
+                    onChangetext ={ (emaild) => validEmail(email) }
+                    />
                 <TextInput
                     style = {styles.input}
                     placeholder="min 6 characters" 
                     secureTextEntry={true}
+                    onChangetext ={ (password) => validPasssword(password) }
                 />
-                <TouchableOpacity style = {styles.button} >
+                {/* here are the validations */}
+                <TouchableOpacity 
+                 style = { !validEmail || !validPasssword ? styles.buttonDisabled : styles.button }
+                 disabled = { !validEmail || !validPasssword ? true : false}
+                >
                     <Text style={styles.buttonText}> - REGISTER - </Text>
                 </TouchableOpacity>
                 <Text style={styles.altText}> Already have an account? </Text>
-                <TouchableOpacity style={styles.altButton}>
+                <TouchableOpacity 
+                    style={styles.altButton}
+                    onPress={ () => {
+                        setLogin(true)
+                        navigation.setOptions({title: 'Sign In'})
+                    } }
+                    >
                     <Text style={styles.altButtonText} >- LOGIN -</Text>
                 </TouchableOpacity>
             </View>
@@ -34,14 +75,20 @@ export const AuthScreen = ( props ) => {
             <TextInput style={styles.input} placeholder="you@email.com" />
             <TextInput
                 style = {styles.input}
-                placeholder="min 6 characters" 
+                placeholder="password" 
                 secureTextEntry={true}
             />
             <TouchableOpacity style = {styles.button} >
                 <Text style={styles.buttonText}> - SIGN IN- </Text>
             </TouchableOpacity>
             <Text style={styles.altText}> dON'T have an account? </Text>
-            <TouchableOpacity style={styles.altButton}>
+            <TouchableOpacity 
+                style={styles.altButton}
+                onPress={ () => {
+                    setLogin(false) 
+                    navigation.setOptions({title: 'Register'})
+                } }
+            >
                 <Text style={styles.altButtonText} >- LOGIN -</Text>
             </TouchableOpacity>
         </View>         
@@ -75,6 +122,10 @@ const styles = StyleSheet.create({
         color: '#eeeeee',
         textAlign: 'center',
     },
+    buttonDisabled: {
+        padding: 10,
+        backgroundColor: '#888888'
+    },
     altText:{
         textAlign: 'center',
         marginTop: 20,
@@ -85,5 +136,6 @@ const styles = StyleSheet.create({
     },
     altButtonText: {
         color: 'blue',
+        textAlign: 'center',
     },
 })
