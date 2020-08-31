@@ -15,6 +15,7 @@ if ( !firebase.app.length ) {
 
 import { HomeScreen } from './components/HomeScreen'
 import { DetailScreen } from './components/DetailScreen'
+import { AuthScreen } from './components/AuthScreen'
 
 const Data = [
   {  "amount": 50,  "category": "food",  "id": "1598241633",  "note": "buying lunch"},
@@ -32,6 +33,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="Register" component={AuthScreen} />
         <Stack.Screen name="Home">
           { (props) => <HomeScreen {...props} text="Hello Home Screen" data={listData}/>}
         </Stack.Screen>
