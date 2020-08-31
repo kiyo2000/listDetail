@@ -7,6 +7,9 @@ export const AuthScreen = ( props ) => {
     // hooks for validation
     const [validEmail,setValidEmail] = useState(false)
     const [validPasssword,setValidPassword] = useState(false)
+    // new hooks for user credentials
+    const [ email, setEmail ] = useState(false)
+    const [ password, setPassword ] = useState(false)
 
     const navigation = useNavigation()
 
@@ -14,6 +17,7 @@ export const AuthScreen = ( props ) => {
     const valideEmail = (email) =>{
         if( email.indexOf('@') > 0 && email.indexOf('.') > 0 ) {
             setValidEmail( true )
+            setEmail( email )
         }
         else {
             setValidEmail( false )
@@ -23,6 +27,7 @@ export const AuthScreen = ( props ) => {
     const validePassword = (password) =>{
         if( password.length >= 6 ) {
             setValidPassword( true )
+            setPassword( password )
         }
         else {
             setValidPassword( false )
@@ -51,6 +56,7 @@ export const AuthScreen = ( props ) => {
                 <TouchableOpacity 
                  style = { !validEmail || !validPasssword ? styles.buttonDisabled : styles.button }
                  disabled = { !validEmail || !validPasssword ? true : false}
+                 onPress = { props.signup(email,password) }
                 >
                     <Text style={styles.buttonText}> - REGISTER - </Text>
                 </TouchableOpacity>

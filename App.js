@@ -34,13 +34,24 @@ export default function App() {
   //from AuthScreen.js via Firebase + error catch
   const register = (email,password) =>{
     firebase.auth().createUserWithEmailAndPassword( email, password )
-    .catch(error => console.log(error) )
+    .catch( error => console.log(error) )
   }
+  //Check if user is logged in or not via firebase.
+  firebase.auth().onAuthStateChanged( (user) => {
+    if( user ) {
+      console.log('User logged in')
+    }
+    else {
+      console.log('user not logged in')
+    }
+  } )
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Register" component={AuthScreen} />
+      <Stack.Screen name="Register">
+        { (props) => <AuthScreen {...props} singup ={ register } /> }
+        </Stack.Screen>
         <Stack.Screen name="Home">
           { (props) => <HomeScreen {...props} text="Hello Home Screen" data={listData}/>}
         </Stack.Screen>
