@@ -9,7 +9,7 @@ import {firebaseConfig} from './config/firebase'
 //firebase library
 import * as firebase from 'firebase'
 // initialise app // check if firebase exist or not
-if ( !firebase.app.length ) {
+if ( !firebase.apps.length ) {
   firebase.initializeApp( firebaseConfig )
 }
 
@@ -50,7 +50,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Register">
-        { (props) => <AuthScreen {...props} singup ={ register } /> }
+        { (props) => <AuthScreen {...props} signup ={ register } /> }
         </Stack.Screen>
         <Stack.Screen name="Home">
           { (props) => <HomeScreen {...props} text="Hello Home Screen" data={listData}/>}
